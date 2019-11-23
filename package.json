@@ -1,0 +1,23 @@
+{
+  "name": "detect-os",
+  "version": "1.0.0",
+  "description": "Detect current running OS including version and codename.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jankapunkt/js-detect-os.git"
+  },
+  "author": "browser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jankapunkt/js-detect-os/issues"
+  },
+  "homepage": "https://github.com/jankapunkt/js-detect-os#readme",
+  "devDependencies": {
+    "snazzy": "^8.0.0",
+    "standard": "^14.3.1"
+  }
+}
