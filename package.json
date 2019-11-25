@@ -24,6 +24,11 @@
   "bugs": {
     "url": "https://github.com/jankapunkt/js-detect-os/issues"
   },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  },
   "homepage": "https://github.com/jankapunkt/js-detect-os#readme",
   "devDependencies": {
     "@babel/cli": "^7.7.4",
