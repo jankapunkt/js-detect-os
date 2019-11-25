@@ -2,9 +2,18 @@
   "name": "detect-os",
   "version": "1.0.0",
   "description": "Detect current running OS including version and codename.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "test"
+    "lint": "cd ./lib && standard",
+    "lint-fix": "cd ./lib && standard --fix",
+    "lint-test": "npm run lint && npm test",
+    "test": "mocha --require @babel/register \"lib/**/*.tests.js\"",
+    "test-coverage": "nyc --reporter=html --reporter=text mocha --require @babel/register \"lib/**/*.tests.js\"",
+    "test-watch": "npm test -- --watch",
+    "build": "rm -rf ./dist/** && babel lib --out-dir ./dist --ignore **/*.tests.js --source-maps",
+    "build-min": "minify ./dist/index.js --out-file ./dist/index.min.js --mangle.keepFnName --mangle.keepClassName --",
+    "build-full": "npm run build && npm run build-min",
+    "build-ci": "npm run lint && npm run test && npm run build-full"
   },
   "repository": {
     "type": "git",
@@ -17,6 +26,11 @@
   },
   "homepage": "https://github.com/jankapunkt/js-detect-os#readme",
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/register": "^7.7.4",
+    "babel-minify": "^0.5.1",
     "snazzy": "^8.0.0",
     "standard": "^14.3.1"
   }
