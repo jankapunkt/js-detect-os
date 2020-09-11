@@ -62,3 +62,7 @@ typings/
 
 /dist
 
+# ide
+.idea
+.vscode
+.atom
