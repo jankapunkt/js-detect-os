@@ -22,8 +22,8 @@ function isPlatform(target) {
       _ref$navigator = _ref.navigator,
       navigator = _ref$navigator === void 0 ? window.navigator : _ref$navigator;
 
-  var platform = navigator.platform;
-  var userAgent = navigator.userAgent;
+  var platform = navigator.platform,
+      userAgent = navigator.userAgent;
   var platformMatch = target.platform.test(platform);
   var agentMatch = target.agent.test(userAgent);
   return strict ? platformMatch && agentMatch : platformMatch || agentMatch;

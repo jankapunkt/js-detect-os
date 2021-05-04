@@ -5,75 +5,40 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.linux = exports.windows = exports.macos = exports.ios = exports.android = void 0;
 var underscore = /_/g;
-var androidVersions = [{
-  name: 'Nougat',
-  pattern: /^10.*$/
-}, {
-  name: 'Nougat',
-  pattern: /^9.*$/
-}, {
-  name: 'Nougat',
-  pattern: /^8.+$/
-}, {
-  name: 'Nougat',
-  pattern: /^7.+$/
-}, {
-  name: 'Marshmallow',
-  pattern: /^6.+$/
-}, {
-  name: 'Lollipop',
-  pattern: /^5.+$/
-}, {
-  name: 'KitKat',
-  pattern: /^4.4.*$/
-}, {
-  name: 'Jelly Bean',
-  pattern: /^4.[1-3].*$/
-}, {
-  name: 'Ice Cream Sandwich',
-  pattern: /^4.0.*$/
-}, {
-  name: 'Honeycomb',
-  pattern: /^3.+$/
-}, {
-  name: 'Gingerbread',
-  pattern: /^2.3.*$/
-}, {
-  name: 'FroYo',
-  pattern: /^2.2.*/
-}, {
-  name: 'Eclair',
-  pattern: /^2.[0-1].*$/
-}, {
-  name: 'Donut',
-  pattern: /^1.6.*$/
-}, {
-  name: 'Cupcake',
-  pattern: /^1.5.*$/
-}, {
-  name: 'Petit Four',
-  pattern: /^1.1.*$/
-}];
+var androidVersions = [['Android 11', /^11.*$/], ['Nougat', /^10.*$/], ['Nougat', /^9.*$/], ['Nougat', /^8.+$/], ['Nougat', /^7.+$/], ['Marshmallow', /^6.+$/], ['Lollipop', /^5.+$/], ['KitKat', /^4.4.*$/], ['Jelly Bean', /^4.[1-3].*$/], ['Ice Cream Sandwich', /^4.0.*$/], ['Honeycomb', /^3.+$/], ['Gingerbread', /^2.3.*$/], ['FroYo', /^2.2.*/], ['Eclair', /^2.[0-1].*$/], ['Donut', /^1.6.*$/], ['Cupcake', /^1.5.*$/], ['Petit Four', /^1.1.*$/]];
 var android = {
   os: 'android',
-  platform: /android.*/i,
+  platform: /android.*|aarch64/i,
   agent: /(?:android|adr) (\d+([._]\d+)*)/i,
   isMobile: function isMobile() {
     return true;
   },
-  version: function version(userAgent) {
+  version: function version(_ref) {
+    var _ref$userAgent = _ref.userAgent,
+        userAgent = _ref$userAgent === void 0 ? '' : _ref$userAgent;
     var match = userAgent.match(android.agent);
     return match && match[1];
   },
-  name: function name(_ref) {
-    var version = _ref.version;
+  name: function name(_ref2) {
+    var _ref2$version = _ref2.version,
+        version = _ref2$version === void 0 ? '' : _ref2$version;
     var found = androidVersions.find(function (entry) {
-      return entry.pattern.test(version);
+      return entry[1].test(version);
     });
-    return found && found.name;
+    return found && found[0];
   },
-  arch: function arch() {
-    return undefined;
+  arch: function arch(_ref3) {
+    var _ref3$platform = _ref3.platform,
+        platform = _ref3$platform === void 0 ? '' : _ref3$platform,
+        _ref3$userAgent = _ref3.userAgent,
+        userAgent = _ref3$userAgent === void 0 ? '' : _ref3$userAgent;
+
+    if (platform.toLowerCase().includes('aarch64')) {
+      return 'aarch64';
+    }
+
+    var match = userAgent.match(/armv.*;/i);
+    return match && match[0];
   }
 };
 exports.android = android;
@@ -84,8 +49,9 @@ var ios = {
   isMobile: function isMobile() {
     return true;
   },
-  version: function version(_ref2) {
-    var userAgent = _ref2.userAgent;
+  version: function version(_ref4) {
+    var _ref4$userAgent = _ref4.userAgent,
+        userAgent = _ref4$userAgent === void 0 ? '' : _ref4$userAgent;
     var match = userAgent.match(ios.agent);
     return match && match[1] && match[1].replace(underscore, '.');
   },
@@ -97,55 +63,7 @@ var ios = {
   }
 };
 exports.ios = ios;
-var macosVersions = [{
-  name: 'Catalina',
-  pattern: /^10.15.*$/
-}, {
-  name: 'Mojave',
-  pattern: /^10.14.*$/
-}, {
-  name: 'High Sierra',
-  pattern: /^10.13.*$/
-}, {
-  name: 'Sierra',
-  pattern: /^10.12.*$/
-}, {
-  name: 'El Capitan',
-  pattern: /^10.11.*$/
-}, {
-  name: 'Yosemite',
-  pattern: /^10.10.*$/
-}, {
-  name: 'Mavericks',
-  pattern: /^10.9.*$/
-}, {
-  name: 'Mountain Lion',
-  pattern: /^10.8.*$/
-}, {
-  name: 'Lion',
-  pattern: /^10.7.*$/
-}, {
-  name: 'Snow Leopard',
-  pattern: /^10.6.*$/
-}, {
-  name: 'Leopard',
-  pattern: /^10.5.*$/
-}, {
-  name: 'Tiger',
-  pattern: /^10.4.*$/
-}, {
-  name: 'Panther',
-  pattern: /^10.3.*$/
-}, {
-  name: 'Jaguar',
-  pattern: /^10.2.*$/
-}, {
-  name: 'Puma',
-  pattern: /^10.1.*$/
-}, {
-  name: 'Cheetah',
-  pattern: /^10.0.*$/
-}];
+var macosVersions = [['Catalina', /^10.15.*$/], ['Mojave', /^10.14.*$/], ['High Sierra', /^10.13.*$/], ['Sierra', /^10.12.*$/], ['El Capitan', /^10.11.*$/], ['Yosemite', /^10.10.*$/], ['Mavericks', /^10.9.*$/], ['Mountain Lion', /^10.8.*$/], ['Lion', /^10.7.*$/], ['Snow Leopard', /^10.6.*$/], ['Leopard', /^10.5.*$/], ['Tiger', /^10.4.*$/], ['Panther', /^10.3.*$/], ['Jaguar', /^10.2.*$/], ['Puma', /^10.1.*$/], ['Cheetah', /^10.0.*$/]];
 var macos = {
   os: 'macos',
   platform: /mac.*/i,
@@ -156,17 +74,18 @@ var macos = {
   arch: function arch() {
     return undefined;
   },
-  version: function version(_ref3) {
-    var userAgent = _ref3.userAgent;
+  version: function version(_ref5) {
+    var _ref5$userAgent = _ref5.userAgent,
+        userAgent = _ref5$userAgent === void 0 ? '' : _ref5$userAgent;
     var match = userAgent.match(macos.agent);
     return match && match[1] && match[1].replace(underscore, '.');
   },
-  name: function name(_ref4) {
-    var version = _ref4.version;
+  name: function name(_ref6) {
+    var version = _ref6.version;
     var found = macosVersions.find(function (entry) {
-      return entry.pattern.test(version);
+      return entry[1].test(version);
     });
-    return found && found.name;
+    return found && found[0];
   }
 };
 exports.macos = macos;
@@ -174,13 +93,14 @@ var windows = {
   os: 'windows',
   platform: /win.*/i,
   agent: /win(?:dows)?(?: phone)?[ _]?(?:(?:nt|9x) )?((?:(\d+\.)*\d+)|xp|me|ce)\b/i,
-  isMobile: function isMobile(_ref5) {
-    var userAgent = _ref5.userAgent;
+  isMobile: function isMobile(_ref7) {
+    var _ref7$userAgent = _ref7.userAgent,
+        userAgent = _ref7$userAgent === void 0 ? '' : _ref7$userAgent;
     return userAgent.toLowerCase().indexOf('windows phone') > -1;
   },
-  arch: function arch(_ref6) {
-    var platform = _ref6.platform,
-        userAgent = _ref6.userAgent;
+  arch: function arch(_ref8) {
+    var platform = _ref8.platform,
+        userAgent = _ref8.userAgent;
 
     if (platform === 'win64') {
       return '64';
@@ -192,8 +112,9 @@ var windows = {
   name: function name() {
     return undefined;
   },
-  version: function version(_ref7) {
-    var userAgent = _ref7.userAgent;
+  version: function version(_ref9) {
+    var _ref9$userAgent = _ref9.userAgent,
+        userAgent = _ref9$userAgent === void 0 ? '' : _ref9$userAgent;
     var match = userAgent.match(windows.agent);
     var v;
 
@@ -256,15 +177,16 @@ var windows = {
 exports.windows = windows;
 var linux = {
   os: 'linux',
-  isMobile: function isMobile(_ref8) {
-    var userAgent = _ref8.userAgent;
+  isMobile: function isMobile(_ref10) {
+    var _ref10$userAgent = _ref10.userAgent,
+        userAgent = _ref10$userAgent === void 0 ? '' : _ref10$userAgent;
     return userAgent.toLowerCase().indexOf('mobi') > -1;
   },
   platform: /(?:linux.*)/i,
   agent: /linux/i,
-  arch: function arch(_ref9) {
-    var platform = _ref9.platform,
-        userAgent = _ref9.userAgent;
+  arch: function arch(_ref11) {
+    var _ref11$platform = _ref11.platform,
+        platform = _ref11$platform === void 0 ? '' : _ref11$platform;
 
     if (platform.indexOf('i686') > -1) {
       return '32';
@@ -277,8 +199,7 @@ var linux = {
   name: function name() {
     return undefined;
   },
-  version: function version(_ref10) {
-    var userAgent = _ref10.userAgent;
+  version: function version() {
     return undefined;
   }
 };

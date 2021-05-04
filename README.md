@@ -20,6 +20,15 @@ Uses mainly `navigator.platform` and `navigator.userAgent` as second guess for d
 
 No legacy support yet, no support for OS-minorites yet. **Feel free to contribute!**
 
+## Why not use feature detection instead?
+
+Yes we all know this is the better option. However, this package intends to
+detect the OS and not the browser, so feature detection won't help that much.
+
+There are more distinct ways of detecting the OS based on certain ways of 
+feature **implementation** and results but that won't be covered by this package
+(yet). 
+
 ## License
 
 MIT, see [license](./LICENSE)

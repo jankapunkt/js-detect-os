@@ -1,6 +1,6 @@
 {
   "name": "detect-os",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Detect current running OS including version and codename.",
   "main": "dist/index.js",
   "scripts": {
@@ -19,8 +19,8 @@
     "type": "git",
     "url": "git+https://github.com/jankapunkt/js-detect-os.git"
   },
-  "author": "browser",
-  "license": "ISC",
+  "author": "Jan Küster<info@jankuester.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jankapunkt/js-detect-os/issues"
   },
@@ -29,6 +29,9 @@
       "@babel/env"
     ]
   },
+  "files": [
+    "/dist"
+  ],
   "homepage": "https://github.com/jankapunkt/js-detect-os#readme",
   "devDependencies": {
     "@babel/cli": "^7.13.16",
