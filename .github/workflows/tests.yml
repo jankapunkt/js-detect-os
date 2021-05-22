@@ -37,5 +37,5 @@ jobs:
 
     - run: npm ci
     - run: npm run build-full --if-present
-    - run: npm lint
-    - run: npm test
+    - run: npm run lint
+    - run: npm run test-coverage
