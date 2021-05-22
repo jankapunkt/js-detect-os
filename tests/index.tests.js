@@ -1,6 +1,6 @@
 import { assert } from 'chai'
 import { describe, it } from 'mocha'
-import OSDetector from './index'
+import OSDetector from '../lib/index'
 
 const getRunner = (target, { version, name, isMobile, deviceMemory = 4, hardwareConcurrency = 2 }) => ({ userAgent, platform }) => {
   const detector = new OSDetector()
