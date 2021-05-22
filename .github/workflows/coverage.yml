@@ -2,20 +2,11 @@ name: coverage
 on:
   workflow_run:
     workflows: ["Node.js CI"]
-    push:
-      branches:
-        - master
-        - develop
-    pull_request:
     types:
       - completed
       - requested
 
-
 jobs:
-
-  # Verify minimum coverage is reached using `go test -short -cover` on latest-ubuntu with default version of Go.
-  # The grep expression can't be too strict, it needed to be relaxed to work with different versions of Go.
   cover:
     name: Coverage
     runs-on: ubuntu-latest
