@@ -1,16 +1,21 @@
 name: coverage
 on:
   workflow_run:
-    workflows: ["Node.js CI"]
+    workflows:
+      - ci
     types:
       - completed
-      - requested
 
 jobs:
   cover:
     name: Coverage
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - run: git branch
+      
       - name: Download coverage
         uses: actions/download-artifact@v2
         with:
