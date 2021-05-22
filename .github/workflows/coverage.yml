@@ -1,0 +1,42 @@
+name: coverage
+on:
+  workflow_run:
+    workflows: ["Node.js CI"]
+    push:
+      branches:
+        - master
+        - develop
+    pull_request:
+    types:
+      - completed
+      - requested
+
+
+jobs:
+
+  # Verify minimum coverage is reached using `go test -short -cover` on latest-ubuntu with default version of Go.
+  # The grep expression can't be too strict, it needed to be relaxed to work with different versions of Go.
+  cover:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download coverage
+        uses: actions/download-artifact@v2
+        with:
+          name: code-coverage-report
+          path: ./
+
+      - name: Create Badge
+        run: |
+          COVERAGE=`cat "./final.txt" | head -1`
+          echo "::set-output name=coverage::$COVERAGE"
+          if [[ $COVERAGE > 80 ]]
+          then
+          echo '::set-output name=SELECTED_COLOR::green'
+          else if [[ $COVERAGE > 65 ]]
+          then
+          echo '::set-output name=SELECTED_COLOR::yellow'
+          else
+          echo '::set-output name=SELECTED_COLOR::red'
+          fi
+          fi
