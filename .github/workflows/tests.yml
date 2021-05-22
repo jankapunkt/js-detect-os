@@ -5,9 +5,10 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
   pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -25,6 +26,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-${{ matrix.node-version }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-${{ matrix.node-version }}
+
     - run: npm ci
     - run: npm run build-full --if-present
     - run: npm lint
