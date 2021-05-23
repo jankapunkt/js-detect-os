@@ -5,10 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.linux = exports.windows = exports.macos = exports.ios = exports.android = void 0;
 var underscore = /_/g;
-var androidVersions = [['Android 11', /^11.*$/], ['Nougat', /^10.*$/], ['Nougat', /^9.*$/], ['Nougat', /^8.+$/], ['Nougat', /^7.+$/], ['Marshmallow', /^6.+$/], ['Lollipop', /^5.+$/], ['KitKat', /^4.4.*$/], ['Jelly Bean', /^4.[1-3].*$/], ['Ice Cream Sandwich', /^4.0.*$/], ['Honeycomb', /^3.+$/], ['Gingerbread', /^2.3.*$/], ['FroYo', /^2.2.*/], ['Eclair', /^2.[0-1].*$/], ['Donut', /^1.6.*$/], ['Cupcake', /^1.5.*$/], ['Petit Four', /^1.1.*$/]];
+var androidVersions = [['Android 11', /^11.*$/], ['Android 10', /^10.*$/], ['Pie', /^9.*$/], ['Oreo', /^8.+$/], ['Nougat', /^7.+$/], ['Marshmallow', /^6.+$/], ['Lollipop', /^5.+$/], ['KitKat', /^4.4.*$/], ['Jelly Bean', /^4.[1-3].*$/], ['Ice Cream Sandwich', /^4.0.*$/], ['Honeycomb', /^3.+$/], ['Gingerbread', /^2.3.*$/], ['FroYo', /^2.2.*/], ['Eclair', /^2.[0-1].*$/], ['Donut', /^1.6.*$/], ['Cupcake', /^1.5.*$/], ['Petit Four', /^1.1.*$/]];
 var android = {
   os: 'android',
-  platform: /android.*|aarch64/i,
+  platform: /android.*|aarch64|arm.*/i,
   agent: /(?:android|adr) (\d+([._]\d+)*)/i,
   isMobile: function isMobile() {
     return true;
@@ -38,7 +38,9 @@ var android = {
     }
 
     var match = userAgent.match(/armv.*;/i);
-    return match && match[0];
+    return match && match.find(function (entry) {
+      return entry.includes('armv');
+    });
   }
 };
 exports.android = android;
@@ -183,7 +185,7 @@ var linux = {
     return userAgent.toLowerCase().indexOf('mobi') > -1;
   },
   platform: /(?:linux.*)/i,
-  agent: /linux/i,
+  agent: /(?!.*android.*)(linux|x11|ubuntu)/i,
   arch: function arch(_ref11) {
     var _ref11$platform = _ref11.platform,
         platform = _ref11$platform === void 0 ? '' : _ref11$platform;
