@@ -1,5 +1,6 @@
 # Detect OS in Javascript
 
+[![CI](https://github.com/jankapunkt/js-detect-os/actions/workflows/tests.yml/badge.svg)](https://github.com/jankapunkt/js-detect-os/actions/workflows/tests.yml)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![GitHub](https://img.shields.io/github/license/jankapunkt/js-detect-os)

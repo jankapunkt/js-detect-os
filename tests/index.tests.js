@@ -1,9 +1,10 @@
 import { assert } from 'chai'
 import { describe, it } from 'mocha'
-import OSDetector from './index'
+import OSDetector from '../lib/index'
 
-const getRunner = (target, { version, name, isMobile, deviceMemory = 4, hardwareConcurrency = 2 }) => ({ userAgent, platform }) => {
+const getRunner = (target, { version, name, isMobile, deviceMemory = 4, hardwareConcurrency = 2 }) => ({ userAgent, platform, debug }) => {
   const detector = new OSDetector()
+  detector.debug = debug
   const navigator = {
     userAgent: userAgent,
     platform: platform,
@@ -52,6 +53,20 @@ describe('android', function () {
       run({
         userAgent: 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36',
         platform: 'Linux aarch64'
+      })
+    })
+  })
+
+  describe('10', function () {
+    const run = getRunner(OSDetector.types.android, {
+      name: 'Android 10',
+      isMobile: true
+    })
+
+    it('detects on chrome mobile', function () {
+      run({
+        userAgent: 'Mozilla/5.0 (Linux; Android 10; SM-A125F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.210 Mobile Safari/537.36',
+        platform: 'Linux armv8l'
       })
     })
   })
@@ -184,6 +199,14 @@ describe('linux', function () {
     run({
       userAgent: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0',
       platform: 'Linux x86_64'
+    })
+  })
+
+  it('detects on ChromeOS Chrome', function () {
+    run({
+      userAgent: 'Mozilla/5.0 (X11; CrOS armv7l 10895.56.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.131 Safari/537.36',
+      platform: 'Linux armv7l',
+      debug: true
     })
   })
 })
