@@ -27,7 +27,7 @@ jobs:
 
       - name: Create Badge
         run: |
-          COVERAGE=`cat "./final.txt" | head -1`
+          COVERAGE=`cat "./code-coverage-summary/final.txt" | head -1`
           echo "::set-output name=coverage::$COVERAGE"
           if [[ $COVERAGE > 80 ]]
           then
