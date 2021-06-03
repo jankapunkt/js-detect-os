@@ -31,11 +31,11 @@ jobs:
           echo "::set-output name=coverage::$COVERAGE"
           if [[ $COVERAGE > 80 ]]
           then
-          echo '::set-output name=SELECTED_COLOR::green'
-          else if [[ $COVERAGE > 65 ]]
+          echo "action_state=green" >> $GITHUB_ENV
+          else if [[ $COVERAGE > 50 ]]
           then
-          echo '::set-output name=SELECTED_COLOR::yellow'
+          echo "action_state=yellow" >> $GITHUB_ENV
           else
-          echo '::set-output name=SELECTED_COLOR::red'
+          echo "action_state=red" >> $GITHUB_ENV
           fi
           fi
